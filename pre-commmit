@@ -1,0 +1,27 @@
+#!/bin/sh
+
+SCRIPT_PATH="$0"
+while [ -h "$SCRIPT_PATH" ]; do SCRIPT_PATH=`readlink "$SCRIPT_PATH"`; done
+SCRIPT_PATH="$(dirname $SCRIPT_PATH)"
+. "${SCRIPT_PATH}/.config.sh"
+
+PRE_COMMIT_ERR=0
+h1 "Running pre-commit hook"
+p "You can bypass this with --no-verify (but don't!)"
+for module in ${PRE_COMMIT_MODULES}; do
+    MODULE_PATH="${MODULES_PATH}/$module"
+    [ ! -e ${MODULE_PATH} ] && continue
+    . "${MODULES_PATH}/$module"
+    if [ $? -eq 1 ] ; then
+        PRE_COMMIT_ERR=1
+    fi
+done
+
+if [ ${PRE_COMMIT_ERR} -eq 1 ]; then
+	echo "  ${CROSS}${RED} Time to fix your code!"
+else
+	echo "  ${CHECK}${GREEN} Good job!"
+fi
+
+echo ${GREY}
+exit ${PRE_COMMIT_ERR}

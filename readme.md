@@ -16,7 +16,11 @@ Enable git templates to install everything in `~/path/to/git-templates` to the `
 git config --global init.templatedir '~/path/to/git-templates'
 ```
 
-> NOTE! this will not overwrite any existing files
+> NOTE! this will not overwrite any existing files. These will need to be cleaned by hand when updating.
+
+#### Alternative
+
+You can manually copy the `git-templates/hooks` directory to the project's `.git/` directory.
 
 ### Acknowledgements
 

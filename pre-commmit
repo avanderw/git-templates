@@ -1,26 +1,26 @@
 #!/bin/sh
+SCRIPT_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-SCRIPT_PATH="$0"
-while [ -h "$SCRIPT_PATH" ]; do SCRIPT_PATH=`readlink "$SCRIPT_PATH"`; done
-SCRIPT_PATH="$(dirname $SCRIPT_PATH)"
 . "${SCRIPT_PATH}/.config.sh"
 
 PRE_COMMIT_ERR=0
 h1 "Running pre-commit hook"
 p "You can bypass this with --no-verify (but don't!)"
+echo
+
 for module in ${PRE_COMMIT_MODULES}; do
-    MODULE_PATH="${MODULES_PATH}/$module"
-    [ ! -e ${MODULE_PATH} ] && continue
-    . "${MODULES_PATH}/$module"
+    CURR_MODULE="${PRE_COMMIT_MODULES_PATH}/${module}"
+    [ ! -e ${CURR_MODULE} ] && continue
+    . "${CURR_MODULE}"
     if [ $? -eq 1 ] ; then
         PRE_COMMIT_ERR=1
     fi
 done
 
 if [ ${PRE_COMMIT_ERR} -eq 1 ]; then
-	echo "  ${CROSS}${RED} Time to fix your code!"
+	echo "  ${CROSS}${RED} Patience thou must have young padawan!"
 else
-	echo "  ${CHECK}${GREEN} Good job!"
+	echo "  ${CHECK}${GREEN} The force is with you!"
 fi
 
 echo ${GREY}

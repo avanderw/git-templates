@@ -1,14 +1,14 @@
 #!/bin/sh
 
-h2 "Master protection"
+h2 "Protect the master"
 
 MASTER_ERROR=0
 branch=`git symbolic-ref HEAD`
 if [ $branch == "refs/heads/master" ]; then
-    fail "Direct commits to the branch master are not allowed"
+    fail "The master is untouchable"
     MASTER_ERROR=1
 else
-	pass "Branch is not master"
+	pass "The master is safe"
 fi
 
 echo

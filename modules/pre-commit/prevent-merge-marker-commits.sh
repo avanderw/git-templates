@@ -1,17 +1,19 @@
 #!/bin/sh
 
-h2 "Prevent merge marker commits"
+h2 "Merge markers (Mogwai)"
 
 MERGE_MARKER_ERROR=0
 for file in $(commit_files); do
     if egrep -rls "^<<<<<<< |^>>>>>>> |^======= $" "${REPO_DIR}/${file}" >/dev/null; then
-    	fail "${file}"
+    	fail "Cleanup: ${file}"
     	MERGE_MARKER_ERROR=1
     fi
 done
 
 if [ $MERGE_MARKER_ERROR -eq 0 ]; then
-	pass "No merge markers found"
+	pass "With Mogwai, comes much responsibility"
+else 
+	p "There just might be a gremlin in your house!"
 fi
 
 echo

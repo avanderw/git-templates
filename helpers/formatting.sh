@@ -10,7 +10,6 @@ h2() {
 
 p() {
 	echo "      ${GREY}$1"
-	echo
 }
 
 fail() {

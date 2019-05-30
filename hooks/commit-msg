@@ -3,7 +3,7 @@
 SCRIPT_PATH="$0"
 while [ -h "$SCRIPT_PATH" ]; do SCRIPT_PATH=`readlink "$SCRIPT_PATH"`; done
 SCRIPT_PATH="$(dirname $SCRIPT_PATH)"
-. "${SCRIPT_PATH}/.config.sh"
+. "${SCRIPT_PATH}/_config.sh"
 
 COMMIT_MSG_ERR=0
 h1 "Running commit-msg hook"
@@ -13,7 +13,7 @@ echo
 for module in ${COMMIT_MSG_MODULES}; do
     CURR_MODULE="${COMMIT_MSG_MODULES_PATH}/$module"
     [ ! -e ${CURR_MODULE} ] && continue
-    . "${CURR_MODULE}" "$1"
+    . "${CURR_MODULE}" $(cat "$1")
     if [ $? -eq 1 ] ; then
         COMMIT_MSG_ERR=1
     fi

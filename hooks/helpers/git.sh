@@ -21,3 +21,7 @@ commit_files() {
 	regex="\.(${extensions%?})$"
 	echo $(git diff-index --name-only --diff-filter=ACM --cached HEAD -- | grep -E "$regex")
 }
+
+count_commit_files() {
+	echo $(commit_files $@) | wc -w | tr -d ' '
+}

@@ -19,3 +19,7 @@ fail() {
 pass() {
 	echo "    ${CHECK} ${GREY}$1${WHITE}"
 }
+
+warn() {
+	echo "    ${EXCLAMATION} ${GREY}$1${WHITE}"
+}

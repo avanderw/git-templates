@@ -10,6 +10,7 @@ GREY=`printf '\033[1;37m'`
 # Icons
 CHECK=`printf ${GREEN}'✔'${WHITE}`
 CROSS=`printf ${RED}'✘'${WHITE}`
+EXCLAMATION=`printf ${YELLOW}'!'${WHITE}`
 
 REPO_DIR=$(git rev-parse --show-toplevel)
 

@@ -3,7 +3,7 @@
 SCRIPT_PATH="$0"
 while [ -h "$SCRIPT_PATH" ]; do SCRIPT_PATH=`readlink "$SCRIPT_PATH"`; done
 SCRIPT_PATH="$(dirname $SCRIPT_PATH)"
-. "${SCRIPT_PATH}/_config.sh"
+. "${SCRIPT_PATH}/CONFIG.sh"
 
 COMMIT_MSG_ERR=0
 h1 "Running commit-msg hook"

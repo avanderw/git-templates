@@ -13,6 +13,6 @@ CROSS=`printf ${RED}'✘'${WHITE}`
 
 REPO_DIR=$(git rev-parse --show-toplevel)
 
-. "${SCRIPT_PATH}/helpers/_config.sh"
-. "${SCRIPT_PATH}/modules/_config.sh"
+. "${SCRIPT_PATH}/helpers/CONFIG.sh"
+. "${SCRIPT_PATH}/modules/CONFIG.sh"
 

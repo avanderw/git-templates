@@ -20,7 +20,13 @@ git config --global init.templatedir '~/path/to/git-templates'
 
 #### Alternative
 
-You can manually copy the `git-templates/hooks` directory to the project's `.git/` directory.
+To use global hook scripts place them all outside of your repositories and then point Git at this new folder.
+
+```bash
+git config --global core.hooksPath '~/path/to/git-templates/hooks'
+```
+
+Lastly, you can manually copy the `git-templates/hooks` directory to the project's `.git/` directory.
 
 ### Acknowledgements
 

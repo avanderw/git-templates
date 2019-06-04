@@ -4,7 +4,7 @@ h2 "Linking issue"
 
 LINK_ISSUE_ERR=0
 
-REGEX="(Closes|Updates) [A-Z]+-[0-9]+"
+REGEX="(Closes|Updates): [A-Z]+-[0-9]+"
 MESSAGE="$1"
 
 if [[ $MESSAGE =~ $REGEX ]]; then

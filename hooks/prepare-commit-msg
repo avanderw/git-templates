@@ -1,0 +1,4 @@
+#!/bin/sh
+
+BRANCH_NAME=$(git branch 2>/dev/null | grep -e ^* | tr -d ' *')
+echo -e "$(cat $1)\nBranch: $BRANCH_NAME" > $1

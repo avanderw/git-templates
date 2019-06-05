@@ -10,6 +10,19 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Installing
 
+There are three methods for installing.
+
+#### Reference hooks from one location for all repositories
+
+To use global hook scripts place them all outside of your repositories and then point Git at this new folder.
+
+```bash
+# new in Git version 2.9
+git config --global core.hookspath '~/path/to/git-templates/hooks'
+```
+
+#### Setup git to copy hooks to each repository on init
+
 Enable git templates to install everything in `~/path/to/git-templates` to the `.git/` project directory when running `git init`.
 
 ```bash
@@ -18,14 +31,7 @@ git config --global init.templatedir '~/path/to/git-templates'
 
 > NOTE! this will not overwrite any existing files. These will need to be cleaned by hand when updating.
 
-#### Alternative
-
-To use global hook scripts place them all outside of your repositories and then point Git at this new folder.
-
-```bash
-# new in Git version 2.9
-git config --global core.hookspath '~/path/to/git-templates/hooks'
-```
+#### Manual
 
 Lastly, you can manually copy the `git-templates/hooks` directory to the project's `.git/` directory.
 

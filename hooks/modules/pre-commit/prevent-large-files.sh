@@ -24,6 +24,8 @@ check_file_size()
 
 h2 "Discriminate against large files"
 
+## todo: ignore for keywords
+
 git diff --staged --name-only | check_file_size
 if [ $? -ne 0 ]; then
 	p "Why are your files larger than $hard_limit?"

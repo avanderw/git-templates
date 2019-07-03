@@ -1,6 +1,7 @@
 ---
 layout: page
 title: commit-msg
+permalink: commit-msg/
 ---
 
 If applied, this commit will _\<your subject line here>_

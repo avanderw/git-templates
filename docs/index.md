@@ -16,3 +16,9 @@ You need to tidy commit messages up a bit before sharing it with other people. L
 Aim for atomic commits: each commit should do one thing only. Similarly, a pull request should aim to fix one bug or implement one new feature. It should only contain multiple commits if that is required to fix the bug or implement the feature.
 
 If your commit / pull request title contains the word "and" then you probably should have used two commits / pull requests.
+
+## Things to avoid
+
+- Mixing whitespace changes with functional code changes.
+- Mixing two unrelated functional changes.
+- Sending large new features in a single giant commit.

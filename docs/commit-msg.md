@@ -41,6 +41,7 @@ Further paragraphs come after blank lines.
 ## Subject line (required)
 
 - Limit to 50 characters
+- Minimum x characters
 - Do not end with a period
 - Capitalize the subject line and each paragraph
 - Use the imperative mood

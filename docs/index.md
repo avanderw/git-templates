@@ -26,13 +26,31 @@ Do not send large features in a single commit. It is unpleasant reviewing 100 fi
 
 ## The Journey
 
-Install the templates.
+<h3><a href="{{site.github.url}}" class="view-on-github"><img src="./assets/github.svg" alt="GitHub icon" width="32"/> Install git-templates (Mandatory)</a></h3>
 
-(link to the repository)
 
-Configure your commit-msg standards.
 
-Configure your pre-commit standards.
+<h3><a href="prepare-commit-msg"><img src="./assets/git.svg" alt="Git icon" width="32"/> Setup prepare-commit-msg (Optional)</a></h3>
+
+This hook is invoked by [git-commit](https://git-scm.com/docs/git-commit) right after preparing the default log message, and before the editor is started.
+
+It takes one to three parameters. The first is the name of the file that contains the commit log message. The second is the source of the commit message, and can be: `message` (if a `-m` or `-F` option was given); `template` (if a `-t` option was given or the configuration option `commit.template` is set); `merge` (if the commit is a merge or a `.git/MERGE_MSG` file exists); `squash` (if a `.git/SQUASH_MSG` file exists); or `commit`, followed by a commit SHA-1 (if a `-c`, `-C` or `--amend` option was given).
+
+If the exit status is non-zero, `git commit` will abort.
+
+The purpose of the hook is to edit the message file in place, and it is not suppressed by the `--no-verify` option. A non-zero exit means a failure of the hook and aborts the commit. It should not be used as replacement for pre-commit hook.
+
+<h3><a href="commit-msg"><img src="./assets/git.svg" alt="Git icon" width="32"/> Setup commit-msg (Optional)</a></h3>
+
+This hook is invoked by [git-commit](https://git-scm.com/docs/git-commit) and [git-merge](https://git-scm.com/docs/git-merge), and can be bypassed with the `--no-verify` option. It takes a single parameter, the name of the file that holds the proposed commit log message. Exiting with a non-zero status causes the command to abort.
+
+The hook is allowed to edit the message file in place, and can be used to normalize the message into some project standard format. It can also be used to refuse the commit after inspecting the message file.
+
+<h3><a href="pre-commit"><img src="./assets/git.svg" alt="Git icon" width="32"/> Setup pre-commit (Optional)</a></h3>
+
+This hook is invoked by [git-commit](https://git-scm.com/docs/git-commit). It takes no parameters, and is invoked after a commit is made.
+
+This hook is meant primarily for notification, and cannot affect the outcome of `git commit`.
 
 ## The Ordeals
 

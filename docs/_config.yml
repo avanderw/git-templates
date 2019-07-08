@@ -14,6 +14,8 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 title: git-templates
+github:
+  url: https://github.com/avanderw/git-templates
 email: avanderw@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
   A .git template to standardise commit quality.

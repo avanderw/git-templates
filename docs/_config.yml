@@ -16,10 +16,9 @@
 title: git-templates
 email: avanderw@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
-  A collection of git hooks. 
-  Standardise commit quality.
-  Modular and configurable.
-  Reduce overall entropy.
+  A .git template to standardise commit quality.
+  Aims to be modular and configurable.
+  Goal is to reduce world entropy.
 baseurl: "/git-templates" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 #twitter_username: jekyllrb

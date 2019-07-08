@@ -2,6 +2,10 @@
 layout: home
 ---
 
+#  git-templates
+
+{{site.description}}
+
 ## The Quest
 
 Every commit must complete the following statement:

@@ -8,9 +8,9 @@ layout: home
 
 ## The Quest
 
-Every commit must complete the following statement:
+Find the disorder; reduce the entropy; become a great collaborator!
 
-> If applied, this commit will _\<your subject line here>_
+> Re-establishing the context of a piece of code is wasteful. We can’t avoid it completely, so our efforts should go to reducing it as much as possible. Commits can do exactly that and as a result, *a commit message shows whether a developer is a good collaborator*. ~ Peter Hutterer
 
 ## The Call
 
@@ -26,11 +26,11 @@ Do not send large features in a single commit. It is unpleasant reviewing 100 fi
 
 ## The Journey
 
-<h3><a href="{{site.github.url}}" class="view-on-github"><img src="./assets/github.svg" alt="GitHub icon" width="32"/> Install git-templates (Mandatory)</a></h3>
+<h3><img src="./assets/github.svg" alt="GitHub icon" width="32"/> <a href="{{site.github.url}}" class="view-on-github">Install git-templates (Mandatory)</a></h3>
 
+The instructions to install git-templates are [located in the repository]({{site.github.url}}). The hooks in git-templates come with default active modules and therefore require no further setup. Go to the respective pages for the hooks to learn more on how to configure each one.
 
-
-<h3><a href="prepare-commit-msg"><img src="./assets/git.svg" alt="Git icon" width="32"/> Setup prepare-commit-msg (Optional)</a></h3>
+<h3><img src="./assets/git.svg" alt="Git icon" width="32"/> <a href="prepare-commit-msg">Setup prepare-commit-msg (Optional)</a></h3>
 
 This hook is invoked by [git-commit](https://git-scm.com/docs/git-commit) right after preparing the default log message, and before the editor is started.
 
@@ -40,13 +40,13 @@ If the exit status is non-zero, `git commit` will abort.
 
 The purpose of the hook is to edit the message file in place, and it is not suppressed by the `--no-verify` option. A non-zero exit means a failure of the hook and aborts the commit. It should not be used as replacement for pre-commit hook.
 
-<h3><a href="commit-msg"><img src="./assets/git.svg" alt="Git icon" width="32"/> Setup commit-msg (Optional)</a></h3>
+<h3><img src="./assets/git.svg" alt="Git icon" width="32"/> <a href="commit-msg">Setup commit-msg (Optional)</a></h3>
 
 This hook is invoked by [git-commit](https://git-scm.com/docs/git-commit) and [git-merge](https://git-scm.com/docs/git-merge), and can be bypassed with the `--no-verify` option. It takes a single parameter, the name of the file that holds the proposed commit log message. Exiting with a non-zero status causes the command to abort.
 
 The hook is allowed to edit the message file in place, and can be used to normalize the message into some project standard format. It can also be used to refuse the commit after inspecting the message file.
 
-<h3><a href="pre-commit"><img src="./assets/git.svg" alt="Git icon" width="32"/> Setup pre-commit (Optional)</a></h3>
+<h3><img src="./assets/git.svg" alt="Git icon" width="32"/> <a href="pre-commit">Setup pre-commit (Optional)</a></h3>
 
 This hook is invoked by [git-commit](https://git-scm.com/docs/git-commit). It takes no parameters, and is invoked after a commit is made.
 
@@ -54,11 +54,9 @@ This hook is meant primarily for notification, and cannot affect the outcome of 
 
 ## The Ordeals
 
-Writing detailed commit messages is a burden that will discourage you from committing early and often.
+Writing detailed commit messages is a burden that will discourage you from committing early and often. 
 
-## The Goal
-
-A committed world with meaning.
+SCM is not a backup system. End-of-day commits are random and useless.
 
 
 

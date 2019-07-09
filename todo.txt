@@ -1,1 +1,2 @@
 2019-07-09 Warn if subject > 50 and fail if > 70
+2019-07-09 Add contributing file https://github.com/spring-projects/spring-framework/blob/30bce7/CONTRIBUTING.md

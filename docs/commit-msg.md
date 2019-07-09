@@ -4,7 +4,15 @@ title: commit-msg
 permalink: commit-msg/
 ---
 
-If applied, this commit will _\<your subject line here>_
+## The Quest
+
+Every commit must complete the following statement:
+
+> If applied, this commit will _\<your subject line here>_
+
+## The Call
+
+Structure your commit messages as follows:
 
 ```
 Short (50 chars or less) summary
@@ -27,20 +35,27 @@ Further paragraphs come after blank lines.
 - Use a hanging indent.
 ```
 
-## Subject line (required)
+Author [Tom Pope](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html)
 
-- Limit to 50 characters
-- Minimum x characters
+For examples of this style, issue a `git log --author=cbeams` in the spring-framework git repository. For convenience, here are several such commits:
 
-### Do not end with a period
-Do you write your emails with an ending period? Use that 2% of your summary length better.
+- [Fix infinite recursion bug in nested @configuration](https://github.com/SpringSource/spring-framework/commit/08e2669b84ec0faa2f7904441fe39ac70b65b078)
+- [Fix false negative test failure in ResourceTests](https://github.com/SpringSource/spring-framework/commit/1d9d3e6ff79ce9f0eca03b02cd1df705925575da)
+- [Compensate for Eclipse vs Sun compiler discrepancy](https://github.com/SpringSource/spring-framework/commit/8e0b1c3a5f957af3049cfa0438317177e16d6de6)
+- [Avoid 'type mismatch' errors in ExtendedBeanInfo](https://github.com/SpringSource/spring-framework/commit/b787a68f2050df179f7036b209aa741230a02477)
 
-### Do not use AND
-Split your commits rather.
+## The Journey
+
+### Structure the subject line
+
+- It's required
+- More than x characters
+- Less than 50 characters
+- Do not end with a period. Do you write your emails with an ending period? Use that 2% of your summary length better.
+- Do not use AND. Split your commits rather.
 
 - Capitalize the subject line and each paragraph
-
-### Use the imperative mood
+- Use the imperative mood
 
 Start the summary with common verbs. Common verbs will help keep the summary short. A short summary aids in separating out the body. Common verbs naturally reduce the use of definite articles. The summary will better match the ticket title. As the ticket is generally written before the work is done.
 
@@ -52,7 +67,7 @@ Start the summary with common verbs. Common verbs will help keep the summary sho
 - Fix an old bug
 ```
 
-## Body (optional)
+### Body (optional)
 
 - Wrap the lines at 72 characters
   - URLs longer than 72 characters get their own line
@@ -60,7 +75,7 @@ Start the summary with common verbs. Common verbs will help keep the summary sho
 - Explain the need for the change (the why)
 - Describe any limitations this commit introduces
 
-## Metadata (optional)
+### Metadata (optional)
 
 - Put metadata at the end of the commit message
 - References to other systems
@@ -72,3 +87,7 @@ Issues: JIRA-123
 Signed-off-by: Me me@example.com
 Tested-by: You you@example.com
 ```
+
+## The Ordeals
+
+If it seems difficult to summarize what your commit does, it may be because it includes several logical changes or bug fixes, and are better split up into several commits using `git add -p`.

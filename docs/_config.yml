@@ -14,11 +14,13 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 title: git-templates
+github:
+  url: https://github.com/avanderw/git-templates
 email: avanderw@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
-  A collection of git hooks. 
-  An attempt to improve commit quality.
-  Modular and configurable.
+  A .git template to standardise commit quality.
+  Aims to be modular and configurable.
+  Goal is to reduce world entropy.
 baseurl: "/git-templates" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 #twitter_username: jekyllrb

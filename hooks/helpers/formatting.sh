@@ -12,6 +12,10 @@ p() {
 	echo "      ${GREY}$1"
 }
 
+info() {
+	echo "      ${GREY}$1"
+}
+
 fail() {
 	echo "    ${CROSS} ${GREY}$1${WHITE}"
 }

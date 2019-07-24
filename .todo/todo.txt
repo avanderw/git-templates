@@ -6,3 +6,4 @@ x 2019-07-22 2019-07-10 Change branch orgin metadata name
 2019-07-15 Add max file length to 2000 lines
 2019-07-24 Refactor +formatting to detail each rule
 2019-07-24 Add +profiling to each script executed
+2019-07-24 Add +configuration for ERROR vs WARN for scripts

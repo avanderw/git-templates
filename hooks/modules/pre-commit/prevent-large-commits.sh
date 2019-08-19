@@ -4,7 +4,7 @@ h2 "Commit size"
 
 LARGE_COMMIT_ERR=0
 WARN_FILE_LIMIT=8
-MAX_FILE_LIMIT=12
+MAX_FILE_LIMIT=16
 FILE_COUNT=$(echo $(count_commit_files))
 p "You committed $FILE_COUNT files"
 if [ $FILE_COUNT -lt $WARN_FILE_LIMIT ]; then

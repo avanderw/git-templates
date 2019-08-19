@@ -1,0 +1,12 @@
+x 2019-07-22 2019-07-09 Warn if subject > 50 and fail if > 70
+x 2019-07-22 2019-07-10 Ignore comments in the commit-msg
+x 2019-07-22 2019-07-10 Change branch orgin metadata name
+2019-07-22 Change branch metadata to only add if it doesn't exist
+2019-07-09 Add contributing file https://github.com/spring-projects/spring-framework/blob/30bce7/CONTRIBUTING.md
+2019-07-15 Add max file length to 2000 lines
+2019-07-24 Refactor +formatting to detail each rule
+2019-07-24 Add +profiling to each script executed
+2019-07-24 Add +configuration for ERROR vs WARN for scripts
+2019-08-13 Add ignore for +merge title length
+2019-08-19 Enhance +master check to look for override file
+2019-08-19 Enhance +commit-size to ignore merge commits

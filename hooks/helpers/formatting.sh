@@ -5,10 +5,14 @@ h1() {
 }
 
 h2() {
-	echo "      ${GREY}$1 ..."
+	echo "      ${WHITE}$1 ..."
 }
 
 p() {
+	echo "      ${GREY}$1"
+}
+
+info() {
 	echo "      ${GREY}$1"
 }
 

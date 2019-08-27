@@ -1,8 +1,10 @@
 #!/bin/sh
 
 SCRIPT_PATH="$0"
-while [ -h "$SCRIPT_PATH" ]; do SCRIPT_PATH=`readlink "$SCRIPT_PATH"`; done
-SCRIPT_PATH="$(dirname $SCRIPT_PATH)"
+while [ -h "$SCRIPT_PATH" ]; do SCRIPT_PATH=$(readlink "$SCRIPT_PATH"); done
+SCRIPT_PATH="$(dirname "$SCRIPT_PATH")"
+
+# shellcheck source=./CONFIG.sh
 . "${SCRIPT_PATH}/CONFIG.sh"
 
 COMMIT_MSG_ERR=0

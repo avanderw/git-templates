@@ -1,0 +1,3 @@
+#!/bin/sh
+prevent_master_commit=ENABLED
+REPO_PATH=$(git rev-parse --show-toplevel)

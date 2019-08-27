@@ -1,0 +1,4 @@
+[alias]
+	feature = "!f() { git checkout -b feature/$1; }; f" #create branch with prefix feature
+	amend = !git add -A && git commit --amend --no-edit #amend previous commit without editing message
+	ls = log --oneline

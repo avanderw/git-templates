@@ -8,7 +8,7 @@ SCRIPT_PATH="$(dirname "$SCRIPT_PATH")"
 . "${SCRIPT_PATH}/CONFIG.sh"
 
 COMMIT_MSG_ERR=0
-h1 "Running commit-msg hook"
+h1 "commit-msg"
 p "You can bypass this with --no-verify (but don't!)"
 echo
 

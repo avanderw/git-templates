@@ -1,6 +1,6 @@
 #!/bin/sh
 h2 "prevent-master-commit.sh"
-info "Prevent direct commits to ${YELLOW}refs/heads/master${GREY}"
+info "Prevent direct commits to ${BLUE}refs/heads/master${GREY}"
 
 branch=$(git symbolic-ref HEAD)
 if [ "$branch" = "refs/heads/master" ]; then

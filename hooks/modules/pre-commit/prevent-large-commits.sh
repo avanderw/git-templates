@@ -1,14 +1,13 @@
 #!/bin/sh
 
 h2 "prevent-large-commits.sh"
-info "Warn when committing more than ${YELLOW}${soft_filecount_limit} files${GREY}"
-info "Fail when committing more than ${RED}${hard_filecount_limit} files${GREY}"
+info "Warn when committing more than ${BLUE}${soft_filecount_limit} files${GREY}"
+info "Fail when committing more than ${BLUE}${hard_filecount_limit} files${GREY}"
 
 committed_filecount=$(git diff-index --name-only --diff-filter=ACM --cached HEAD -- | wc -w | tr -d ' ')
 
 if [ "$committed_filecount" -lt "${soft_filecount_limit}" ]; then
-  info "You committed ${GREEN}${committed_filecount} files${GREY}"
-  pass "You continue to master the single responsibility principle"
+  pass "You are committing ${GREEN}${committed_filecount} files${GREY}"
   return 0
 elif [ "$committed_filecount" -lt "${hard_filecount_limit}" ]; then
   info "Consider the modularity of your change if it affects ${YELLOW}${committed_filecount} files${GREY}"

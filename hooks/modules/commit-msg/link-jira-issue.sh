@@ -15,5 +15,4 @@ else
     LINK_ISSUE_ERR=1
 fi
 
-echo
 return $LINK_ISSUE_ERR

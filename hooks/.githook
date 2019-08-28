@@ -1,4 +1,5 @@
 #!/bin/sh
+pre_commit_modules="prevent-master-commit.sh prevent-merge-marker-commits.sh prevent-large-commits.sh prevent-large-files.sh"
 prevent_master_commit=ENABLED
 prevent_large_files=ENABLED
 prevent_large_commits=ENABLED

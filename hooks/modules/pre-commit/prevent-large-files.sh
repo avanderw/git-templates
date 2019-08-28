@@ -1,9 +1,14 @@
 #!/bin/sh
 
 check_file_size() {
+  info "Checking filesizes ..."
   n=0
+  largest=0
   while read -r filename; do
     filesize=$([[ -e $filename ]] && stat --printf=%s "${filename}" || echo 0)
+    if [ ${largest} -lt ${filesize} ]; then
+      largest=${filesize}
+    fi
     if [ "$filesize" -gt "${hard_filesize_limit}" ]; then
       fail "[$filesize bytes] ${filename}"
       n=$((n + 1))
@@ -12,12 +17,13 @@ check_file_size() {
     fi
   done
 
+  info "The largest filesize is ${GREEN}${largest} bytes${GREY}"
   exit $n
 }
 
 h2 "prevent-large-files.sh"
-info "Warn when files are larger than ${YELLOW}${soft_filesize_limit}${GREY} bytes"
-info "Fail when files are larger than ${RED}${hard_filesize_limit}${GREY} bytes"
+info "Warn when files are larger than ${BLUE}${soft_filesize_limit} bytes${GREY}"
+info "Fail when files are larger than ${BLUE}${hard_filesize_limit} bytes${GREY}"
 
 git diff --staged --name-only | check_file_size
 if [ $? -ne 0 ]; then
@@ -33,4 +39,4 @@ if [ $? -ne 0 ]; then
   fi
 fi
 
-pass "Your committed files are not too large"
+pass "You are not committing large files"

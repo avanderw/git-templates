@@ -14,16 +14,15 @@ fi
 
 # shellcheck disable=SC1090
 . "${SCRIPT_PATH}/helpers/formatting.sh"
-# shellcheck disable=SC1090
-. "${SCRIPT_PATH}/modules/pre-commit/CONFIG.sh"
 
 PRE_COMMIT_ERR=0
-h1 "Running pre-commit hook"
-p "You can bypass this with --no-verify (but don't!)"
-echo
+h1 "pre-commit"
+info "You can bypass hooks with ${MAGENTA}--no-verify${GREY} (but don't!)"
+info "Rather configure ${GREEN}'repository/.githook'${GREY} to disable rules"
 
-for module in ${PRE_COMMIT_MODULES}; do
-    CURR_MODULE="${PRE_COMMIT_MODULES_PATH}/${module}"
+# shellcheck disable=SC2154
+for module in ${pre_commit_modules}; do
+    CURR_MODULE="${SCRIPT_PATH}/modules/pre-commit/${module}"
     [ ! -e "${CURR_MODULE}" ] && continue
     # shellcheck disable=SC1090
     . "${CURR_MODULE}"
@@ -32,11 +31,11 @@ for module in ${PRE_COMMIT_MODULES}; do
     fi
 done
 
+echo ""
 if [ ${PRE_COMMIT_ERR} -eq 1 ]; then
-	fail "Patience thou must have young padawan!"
+	fail "${RED}Patience thou must have young padawan!${GREY}"
 else
-	pass "The force is with you!"
+	pass "${GREEN}The force is with you!${GREY}"
 fi
 
-echo "${GREY}"
 exit ${PRE_COMMIT_ERR}

@@ -1,10 +1,10 @@
 #!/bin/sh
 
 h2 "prevent-merge-marker-commits.sh"
-info "Prevent commits that contain any of the following:"
-info "  ${YELLOW}<<<<<<<${GREY}"
-info "  ${YELLOW}=======${GREY}"
-info "  ${YELLOW}>>>>>>>${GREY}"
+info "Prevent commits with files that contain any of the following:"
+info "  ${BLUE}<<<<<<<${GREY}"
+info "  ${BLUE}=======${GREY}"
+info "  ${BLUE}>>>>>>>${GREY}"
 
 commit_files=$(git diff-index --name-only --diff-filter=ACM --cached HEAD --)
 for file in ${commit_files}; do

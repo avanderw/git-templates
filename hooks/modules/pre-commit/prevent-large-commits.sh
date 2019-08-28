@@ -1,23 +1,30 @@
 #!/bin/sh
 
-h2 "Commit size"
+h2 "prevent-large-commits.sh"
+info "Warn when committing more than ${YELLOW}${soft_filecount_limit} files${GREY}"
+info "Fail when committing more than ${RED}${hard_filecount_limit} files${GREY}"
 
-LARGE_COMMIT_ERR=0
-WARN_FILE_LIMIT=8
-MAX_FILE_LIMIT=16
 committed_filecount=$(git diff-index --name-only --diff-filter=ACM --cached HEAD -- | wc -w | tr -d ' ')
 
-p "You committed $committed_filecount files"
-if [ "$committed_filecount" -lt $WARN_FILE_LIMIT ]; then
-	pass "You continue to master the single responsibility principle"
-elif [ "$committed_filecount" -lt $MAX_FILE_LIMIT ]; then
-	warn "This commit is a bit bloated"
+if [ "$committed_filecount" -lt "${soft_filecount_limit}" ]; then
+  info "You committed ${GREEN}${committed_filecount} files${GREY}"
+  pass "You continue to master the single responsibility principle"
+  return 0
+elif [ "$committed_filecount" -lt "${hard_filecount_limit}" ]; then
+  info "Consider the modularity of your change if it affects ${YELLOW}${committed_filecount} files${GREY}"
+  warn "This commit is a bit bloated"
+  return 0
 else
-	LARGE_COMMIT_ERR=1
-	fail "Why commit more than ${MAX_FILE_LIMIT} files?"
-	fail "Your commits are not modular enough!"
-	p "There is never a healthy reason for this"
-fi 
+  info "Why commit more than ${RED}${hard_filecount_limit} files${GREY}?"
+  info "There is never a healthy reason for this"
 
-echo
-return $LARGE_COMMIT_ERR
+  if [ "${prevent_large_commits}" = "ENABLED" ]; then
+    info "This rule has been enabled"
+    fail "Your commits are not modular enough!"
+    return 1
+  else
+    info "This rule has been disabled"
+    pass "Your commit with too many changes is allowed"
+    return 0
+  fi
+fi

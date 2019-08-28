@@ -1,3 +1,8 @@
 #!/bin/sh
 prevent_master_commit=ENABLED
+prevent_large_files=ENABLED
+
+hard_filesize_limit=65536
+soft_filesize_limit=32768
+
 REPO_PATH=$(git rev-parse --show-toplevel)

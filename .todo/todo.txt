@@ -4,11 +4,11 @@ x 2019-07-22 2019-07-10 Change branch orgin metadata name
 2019-07-22 Change branch metadata to only add if it doesn't exist
 2019-07-09 Add contributing file https://github.com/spring-projects/spring-framework/blob/30bce7/CONTRIBUTING.md
 2019-07-15 Add max file length to 2000 lines
-2019-07-24 Refactor +formatting to detail each rule
+x 2019-08-29 2019-07-24 Refactor +formatting to detail each rule
 2019-07-24 Add +profiling to each script executed
 x 2019-08-27 2019-07-24 Add +configuration for ERROR vs WARN for scripts start:2019-08-27
 2019-08-13 Add ignore for +merge title length
 x 2019-08-27 2019-08-19 Enhance +master check to look for override file start:2019-08-27
 2019-08-19 Enhance +commit-size to ignore merge commits
-2019-08-28 Refactor configuration to use properties with overrides start:2019-08-28
+x 2019-08-29 2019-08-28 Refactor configuration to use properties with overrides start:2019-08-28
 2019-08-28 Document .gitalias in README.md

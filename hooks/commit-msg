@@ -4,16 +4,24 @@ SCRIPT_PATH="$0"
 while [ -h "$SCRIPT_PATH" ]; do SCRIPT_PATH=$(readlink "$SCRIPT_PATH"); done
 SCRIPT_PATH="$(dirname "$SCRIPT_PATH")"
 
-# shellcheck source=./CONFIG.sh
-. "${SCRIPT_PATH}/CONFIG.sh"
+# shellcheck disable=SC1090
+. "${SCRIPT_PATH}/.githook"
+if [ -f "${REPO_PATH}/.githook" ]
+then
+  # shellcheck disable=SC1090
+  . "${REPO_PATH}/.githook"
+fi
+
+# shellcheck disable=SC1090
+. "${SCRIPT_PATH}/helpers/formatting.sh"
 
 COMMIT_MSG_ERR=0
 h1 "commit-msg"
-p "You can bypass this with --no-verify (but don't!)"
-echo
+info "You can bypass hooks with ${MAGENTA}--no-verify${GREY} (but don't!)"
+info "Rather configure ${GREEN}'repository/.githook'${GREY} to disable rules"
 
-for module in ${COMMIT_MSG_MODULES}; do
-    CURR_MODULE="${COMMIT_MSG_MODULES_PATH}/$module"
+for module in ${commit_msg_modules}; do
+    CURR_MODULE="${SCRIPT_PATH}/modules/commit-msg/$module"
     [ ! -e ${CURR_MODULE} ] && continue
     . "${CURR_MODULE}" "$(cat "$1")"
     if [ $? -eq 1 ] ; then
@@ -21,11 +29,12 @@ for module in ${COMMIT_MSG_MODULES}; do
     fi
 done
 
+echo
 if [ ${COMMIT_MSG_ERR} -eq 1 ]; then
-	echo "  ${CROSS}${RED} Patience thou must have young padawan!"
+	fail "${RED}Patience thou must have young padawan!${GREY}"
 else
-	echo "  ${CHECK}${GREEN} The force is with you!"
+	pass "${GREEN}The force is with you!${GREY}"
 fi
 
-echo ${GREY}
+echo "${GREY}"
 exit ${COMMIT_MSG_ERR}

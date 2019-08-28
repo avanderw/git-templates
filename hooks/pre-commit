@@ -4,13 +4,17 @@ SCRIPT_PATH="$0"
 while [ -h "$SCRIPT_PATH" ]; do SCRIPT_PATH=$(readlink "$SCRIPT_PATH"); done
 SCRIPT_PATH="$(dirname "$SCRIPT_PATH")"
 
+# shellcheck disable=SC1090
 . "${SCRIPT_PATH}/.githook"
 if [ -f "${REPO_PATH}/.githook" ]
 then
+  # shellcheck disable=SC1090
   . "${REPO_PATH}/.githook"
 fi
 
+# shellcheck disable=SC1090
 . "${SCRIPT_PATH}/helpers/formatting.sh"
+# shellcheck disable=SC1090
 . "${SCRIPT_PATH}/modules/pre-commit/CONFIG.sh"
 
 PRE_COMMIT_ERR=0
@@ -20,7 +24,8 @@ echo
 
 for module in ${PRE_COMMIT_MODULES}; do
     CURR_MODULE="${PRE_COMMIT_MODULES_PATH}/${module}"
-    [ ! -e ${CURR_MODULE} ] && continue
+    [ ! -e "${CURR_MODULE}" ] && continue
+    # shellcheck disable=SC1090
     . "${CURR_MODULE}"
     if [ $? -eq 1 ] ; then
         PRE_COMMIT_ERR=1
@@ -28,10 +33,10 @@ for module in ${PRE_COMMIT_MODULES}; do
 done
 
 if [ ${PRE_COMMIT_ERR} -eq 1 ]; then
-	echo "  ${CROSS}${RED} Patience thou must have young padawan!"
+	fail "Patience thou must have young padawan!"
 else
-	echo "  ${CHECK}${GREEN} The force is with you!"
+	pass "The force is with you!"
 fi
 
-echo ${GREY}
+echo "${GREY}"
 exit ${PRE_COMMIT_ERR}

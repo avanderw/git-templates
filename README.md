@@ -12,6 +12,10 @@ These instructions will get you a copy of the project up and running on your loc
 
 There are three methods for installing.
 
+```bash
+git config --global include.path '~/path/to/git-templates/.gitalias
+```
+
 #### Reference hooks from one location for all repositories
 
 To use global hook scripts place them all outside of your repositories and then point Git at this new folder.

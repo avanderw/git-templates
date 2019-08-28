@@ -1,12 +1,11 @@
 #!/bin/sh
-
-SUBJECT_LINE_PERIOD_ERR=0
+h2 "subject-line-period.sh"
+info "Ensure there is no period at the end fo the line"
 
 if [[ ! -z "$1" && ${1:${#1}-1:1} == . ]]; then
 	fail "Why the ending period?"
-    SUBJECT_LINE_PERIOD_ERR=1
+	return 1
 else
 	pass "No ending period"
+	return 0
 fi
-
-return $SUBJECT_LINE_PERIOD_ERR

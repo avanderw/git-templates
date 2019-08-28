@@ -4,10 +4,20 @@ prevent_master_commit=ENABLED
 prevent_large_files=ENABLED
 prevent_large_commits=ENABLED
 
+commit_msg_modules="subject-line-length.sh subject-line-structure.sh subject-line-verb.sh restrict-body.sh"
+
+SUBJECT_LINE_MIN_LEN=8
+SUBJECT_LINE_SOFT_MAX=50
+SUBJECT_LINE_MAX_LEN=70
+
+SUBJECT_LINE_VERB="fix refactor add update change remove delete merge revert enable disable enhance setup release"
+
 hard_filesize_limit=65536
 soft_filesize_limit=32768
 
 soft_filecount_limit=8
 hard_filecount_limit=16
+
+body_wrap=72
 
 REPO_PATH=$(git rev-parse --show-toplevel)

@@ -34,13 +34,13 @@ info() {
 }
 
 fail() {
-	echo " ${CROSS} ${GREY}$1${WHITE}"
+	echo " ${CROSS} ${GREY}$1${GREY}"
 }
 
 pass() {
-	echo " ${CHECK} ${GREY}$1${WHITE}"
+	echo " ${CHECK} ${GREY}$1${GREY}"
 }
 
 warn() {
-	echo " ${EXCLAMATION} ${GREY}$1${WHITE}"
+	echo " ${EXCLAMATION} ${YELLOW}$1${GREY}"
 }

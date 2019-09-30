@@ -12,3 +12,4 @@ x 2019-08-27 2019-08-19 Enhance +master check to look for override file start:20
 2019-08-19 Enhance +commit-size to ignore merge commits
 x 2019-08-29 2019-08-28 Refactor configuration to use properties with overrides start:2019-08-28
 2019-08-28 Document .gitalias in README.md
+2019-09-12 Enhance file size calculation to ignore binary files

@@ -1,4 +1,11 @@
 [alias]
-	feature = "!f() { git checkout -b feature/$1; }; f" #create branch with prefix feature
-	amend = !git add -A && git commit --amend --no-edit #amend previous commit without editing message
-	ls = log --oneline
+	feature = "!f() { git checkout -b feature/$1; }; f" 									# Create branch with prefix feature
+	amend   = !git add -A && git commit --amend --no-edit 									# Amend previous commit without editing message
+	ls      = log --oneline
+	sync    = !git fetch --all && git rebase origin/master
+	up      = !git pull --rebase --prune $@ && git submodule update --init --recursive		# Pull changes from the remote. Rebase any local commits to come after the commits I pulled down. Remove remote-tracking branches that no longer exist on the remote.
+	save    = !git add -A && git commit -m 'SAVEPOINT'										# Add all changes including untracked files and create a commit
+	undo    = reset HEAD~1 --mixed 															# Reset the previous commit, but keep all the changes from that commit in the working directory
+	wipe    = !git add -A && git commit -qm 'WIPE SAVEPOINT' && git reset HEAD~1 --hard		# Commit everything working directory and then hard reset to remove that commit
+	bclean  = "!f() { git checkout ${1-master} && git branch --merged ${1-master} | grep -v " ${1-master}$" | xargs git branch -d; }; f" # Run from default branch and does the cleanup of merged branches.
+	bdone   = "!f() { git checkout ${1-master} && git up && git bclean ${1-master}; }; f"

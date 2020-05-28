@@ -1,4 +1,0 @@
-#!/bin/sh
-
-BRANCH_NAME=$(git branch 2>/dev/null | grep -e ^* | tr -d ' *')
-echo -e "$(cat $1)\n\nOrigin: $BRANCH_NAME" > $1

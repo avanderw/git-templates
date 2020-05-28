@@ -15,8 +15,8 @@ SUBJECT_LINE_VERB="fix refactor add update change remove delete merge revert ena
 hard_filesize_limit=65536
 soft_filesize_limit=32768
 
-soft_filecount_limit=8
-hard_filecount_limit=16
+soft_filecount_limit=16
+hard_filecount_limit=32
 
 body_wrap=72
 

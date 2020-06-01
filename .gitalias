@@ -9,3 +9,4 @@
 	wipe    = !git add -A && git commit -qm 'WIPE SAVEPOINT' && git reset HEAD~1 --hard		# Commit everything working directory and then hard reset to remove that commit
 	bclean  = "!f() { git checkout ${1-master} && git branch --merged ${1-master} | grep -v " ${1-master}$" | xargs git branch -d; }; f" # Run from default branch and does the cleanup of merged branches.
 	bdone   = "!f() { git checkout ${1-master} && git up && git bclean ${1-master}; }; f"
+	alias   = "!git config --get-regexp ^alias\\. | sed -e s/^alias\\.// -e s/\\ /\\ =\\ /" # List aliases

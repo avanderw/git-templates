@@ -1,0 +1,1 @@
+2019-07-22 Change branch metadata to only add if it doesn't exist

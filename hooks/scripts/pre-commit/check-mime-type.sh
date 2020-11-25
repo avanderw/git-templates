@@ -19,7 +19,7 @@ check_mime_type() {
   exit $UNKNOWN
 }
 
-if ! git diff --staged --name-only | check_mime_type; then
+if ! git diff-index --name-only --diff-filter=ACM --cached HEAD | check_mime_type; then
   echo "$RED  ✘ Unknown mime types, please review...$RESET"
   return 1
 else

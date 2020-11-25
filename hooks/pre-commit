@@ -1,41 +1,39 @@
-#!/bin/sh
+#!/usr/bin/env bash
+START_TIME=$(date +%s)
 
 SCRIPT_PATH="$0"
 while [ -h "$SCRIPT_PATH" ]; do SCRIPT_PATH=$(readlink "$SCRIPT_PATH"); done
 SCRIPT_PATH="$(dirname "$SCRIPT_PATH")"
 
-# shellcheck disable=SC1090
-. "${SCRIPT_PATH}/.githook"
-if [ -f "${REPO_PATH}/.githook" ]
-then
-  # shellcheck disable=SC1090
-  . "${REPO_PATH}/.githook"
-fi
+echo "Reviewing commit integrity (pre-commit), bypass with '--no-verify'"
 
-# shellcheck disable=SC1090
-. "${SCRIPT_PATH}/helpers/formatting.sh"
-
-PRE_COMMIT_ERR=0
-h1 "pre-commit"
-info "You can bypass hooks with ${MAGENTA}--no-verify${GREY} (but don't!)"
-info "Rather configure ${GREEN}'repository/.githook'${GREY} to disable rules"
-
-# shellcheck disable=SC2154
-for module in ${pre_commit_modules}; do
-    CURR_MODULE="${SCRIPT_PATH}/modules/pre-commit/${module}"
-    [ ! -e "${CURR_MODULE}" ] && continue
-    # shellcheck disable=SC1090
-    . "${CURR_MODULE}"
-    if [ $? -eq 1 ] ; then
-        PRE_COMMIT_ERR=1
-    fi
+SCRIPTS="check-branch.sh check-commit-size.sh check-file-size.sh check-merge-markers.sh check-mime-type.sh"
+WARNINGS=0;
+for script in $SCRIPTS; do
+  # shellcheck source=scripts/pre-commit
+  . "$SCRIPT_PATH/scripts/pre-commit/$script"
+  if [ $? -eq 1 ] ; then
+    WARNINGS=${WARNINGS+1}
+  fi
 done
 
-echo ""
-if [ ${PRE_COMMIT_ERR} -eq 1 ]; then
-	fail "${RED}Patience thou must have young padawan!${GREY}"
-else
-	pass "${GREEN}The force is with you!${GREY}"
+REPLY="y"
+if [ $WARNINGS -gt 1 ]; then
+  exec < /dev/tty # assigns standard input to the keyboard
+	read -p "$WARNINGS warnings, continue (y/n)? " -n 1 -r
+	echo
+elif [ $WARNINGS -eq 1 ]; then
+  exec < /dev/tty # assigns standard input to the keyboard
+  read -p "1 warning, continue (y/n)? " -n 1 -r
+  echo
 fi
 
-exit ${PRE_COMMIT_ERR}
+END_TIME=$(date +%s)
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+  echo "Time taken: $((END_TIME-START_TIME))s"
+  echo
+else
+  echo "Commit denied: $((END_TIME-START_TIME))s"
+  echo
+  exit 1
+fi

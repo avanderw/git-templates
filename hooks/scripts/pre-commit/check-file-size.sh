@@ -25,7 +25,7 @@ check_file_size() {
   exit $n
 }
 
-if ! git diff --staged --name-only | check_file_size; then
+if ! git diff-index --name-only --diff-filter=ACM --cached HEAD | check_file_size; then
   echo "$RED  ✘ Large files, please review...$RESET"
   return 1
 else

@@ -1,40 +1,65 @@
-#!/bin/sh
+#!/usr/bin/env bash
+START_TIME=$(date +%s)
+
+RESET=$(printf '\033[0m')
+GREEN=$(printf '\033[0;32m')
 
 SCRIPT_PATH="$0"
 while [ -h "$SCRIPT_PATH" ]; do SCRIPT_PATH=$(readlink "$SCRIPT_PATH"); done
 SCRIPT_PATH="$(dirname "$SCRIPT_PATH")"
 
-# shellcheck disable=SC1090
-. "${SCRIPT_PATH}/.githook"
-if [ -f "${REPO_PATH}/.githook" ]
-then
-  # shellcheck disable=SC1090
-  . "${REPO_PATH}/.githook"
+SUMMARY=$(head <"$1" -1)
+sed -E 's/(\S| )+\f\f?//'
+echo "If applied this commit will"
+echo "$GREEN  $SUMMARY$RESET"
+echo
+
+BODY=$(tr '\n' '\f' <"$1" | sed -E 's/(\S| )+\f\f?//' | tr '\f' '\n')
+BODY=$(echo "$BODY" | sed -E 's/#.*//')
+PARA=$(tr '\n' '\f' <"$1" | sed -E 's/(\S| )+\f\f?((\S| )+)\f.*/\2/g')
+if [ -n "$BODY" ]; then
+  echo "The problem is that"
+  echo "$GREEN  $PARA$RESET"
+  echo
 fi
 
-# shellcheck disable=SC1090
-. "${SCRIPT_PATH}/helpers/formatting.sh"
-
-COMMIT_MSG_ERR=0
-h1 "commit-msg"
-info "You can bypass hooks with ${MAGENTA}--no-verify${GREY} (but don't!)"
-info "Rather configure ${GREEN}'repository/.githook'${GREY} to disable rules"
-
-for module in ${commit_msg_modules}; do
-    CURR_MODULE="${SCRIPT_PATH}/modules/commit-msg/$module"
-    [ ! -e ${CURR_MODULE} ] && continue
-    . "${CURR_MODULE}" "$(cat "$1")"
-    if [ $? -eq 1 ] ; then
-        COMMIT_MSG_ERR=1
-    fi
+WARNINGS=0
+echo "Reviewing commit message (commit-msg)"
+echo "  (bypass with '--no-verify')"
+SCRIPTS="check-first-word.sh check-length.sh check-period.sh"
+for script in $SCRIPTS; do
+  # shellcheck source=scripts/pre-commit/summary
+  if ! . "$SCRIPT_PATH/scripts/commit-msg/summary/$script"; then
+    WARNINGS=$((WARNINGS+1))
+  fi
 done
 
-echo
-if [ ${COMMIT_MSG_ERR} -eq 1 ]; then
-	fail "${RED}Patience thou must have young padawan!${GREY}"
+if [ -n "$BODY" ]; then
+  SCRIPTS="check-separator.sh check-wrap.sh"
+  for script in $SCRIPTS; do
+    # shellcheck source=scripts/commit-msg/body
+    if ! . "$SCRIPT_PATH/scripts/commit-msg/body/$script"; then
+      WARNINGS=$((WARNINGS+1))
+    fi
+  done
 else
-	pass "${GREEN}The force is with you!${GREY}"
+  echo "$GREEN  ✓ No body$RESET"
 fi
 
-echo "${GREY}"
-exit ${COMMIT_MSG_ERR}
+REPLY="y"
+if [ $WARNINGS -gt 0 ]; then
+  exec </dev/tty # assigns standard input to the keyboard
+  printf "%s warnings, continue (y/n)? " $WARNINGS
+  read -n 1 -r
+  echo
+fi
+
+END_TIME=$(date +%s)
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+  echo "Time taken: $((END_TIME - START_TIME))s"
+  echo
+else
+  echo "Commit denied: $((END_TIME - START_TIME))s"
+  echo
+  exit 1
+fi

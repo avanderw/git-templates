@@ -5,8 +5,8 @@ SCRIPT_PATH="$0"
 while [ -h "$SCRIPT_PATH" ]; do SCRIPT_PATH=$(readlink "$SCRIPT_PATH"); done
 SCRIPT_PATH="$(dirname "$SCRIPT_PATH")"
 
-echo "Reviewing commit integrity (pre-commit), bypass with '--no-verify'"
-
+echo "Reviewing commit integrity (pre-commit)"
+echo "  (bypass with '--no-verify')"
 SCRIPTS="check-branch.sh check-commit-size.sh check-file-size.sh check-merge-markers.sh check-mime-type.sh"
 WARNINGS=0;
 for script in $SCRIPTS; do

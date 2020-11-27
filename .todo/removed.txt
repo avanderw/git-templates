@@ -1,1 +1,5 @@
 2019-07-22 Change branch metadata to only add if it doesn't exist
+r 2020-11-27 2019-07-15 Add max file length to 2000 lines
+r 2020-11-27 2019-08-13 Add ignore for +merge title length
+r 2020-11-27 2019-08-19 Enhance +commit-size to ignore merge commits
+r 2020-11-27 2019-09-12 Enhance file size calculation to ignore binary files

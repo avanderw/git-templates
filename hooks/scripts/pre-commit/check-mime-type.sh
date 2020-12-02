@@ -5,7 +5,7 @@ RED=$(printf '\033[0;31m')
 GREEN=$(printf '\033[0;32m')
 YELLOW=$(printf '\033[1;33m')
 
-ALLOWED_MIME_TYPES="text/html text/plain text/xml text/x-shellscript text/x-c image/svg+xml"
+ALLOWED_MIME_TYPES="text/html text/plain text/xml text/x-shellscript text/x-c text/x-Algol68 image/svg+xml"
 
 check_mime_type() {
   UNKNOWN=0

@@ -1,6 +1,4 @@
 # git-templates
-![top-language](https://img.shields.io/github/languages/top/avanderw/git-templates)
-![license](https://img.shields.io/github/license/avanderw/git-templates)
 _A collection of git hooks and aliases to be pulled into a global location for git to reference_
 
 ## Showcase
@@ -56,8 +54,6 @@ git pull
 ```
 
 ## Changelog
-![last-commit](https://img.shields.io/github/last-commit/avanderw/git-templates)
-
 All notable changes to this project will be documented in [CHANGELOG](CHANGELOG.md). 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).

@@ -14,3 +14,5 @@
 	authors = "!git shortlog -esn --no-merges"
 	stats   = "!f() { git log --author=\"$1\" --shortstat --no-merges | grep -E 'fil(e|es) changed' | awk '{files+=$1; inserted+=$4; deleted+=$6; delta+=$4-$6} END {printf \"Commit stats:\\n- Files changed (total)..  %s\\n- Lines added (total)....  %s\\n- Lines deleted (total)..  %s\\n- Total lines (delta)....  %s\\n- Add./Del. ratio (1:n)..  1 : %s\\n\", files, inserted, deleted, delta, deleted / inserted }'; }; f"
 	commits = "!f() { git rev-list --no-merges --count HEAD --author=\"$1\"; }; f"
+	noproxy = config --global --remove-section https
+    proxy   = config --global https.proxy http://your.proxy:3128

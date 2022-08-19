@@ -75,11 +75,19 @@ $ git ls
 :
 ```
 
+## Uninstall
+
+`git config --global --unset core.hookspath`
+
 ## Updating
 ```bash
 $ cd /path/to/git-templates
 $ git pull
 ```
+
+## Personalise
+
+`git config --global core.editor notepad`
 
 ## Changelog
 All notable changes to this project will be documented in [CHANGELOG](CHANGELOG.md). 

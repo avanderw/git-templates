@@ -3,6 +3,7 @@
 	bugfix  = "!f() { git checkout -b bugfix/$1; }; f" 										# Create branch with prefix feature
 	amend   = !git add -A && git commit --amend --no-edit 									# Amend previous commit without editing message
 	ls      = log --oneline
+	ac			= "!f() { git add -A && git commit -m \"$1\"; }; f" 							# Add all changes and commit with message
 	sync    = !git fetch --all && git rebase origin/master
 	up      = !git pull --rebase --prune $@ && git submodule update --init --recursive		# Pull changes from the remote. Rebase any local commits to come after the commits I pulled down. Remove remote-tracking branches that no longer exist on the remote.
 	save    = !git add -A && git commit -m 'SAVEPOINT'										# Add all changes including untracked files and create a commit

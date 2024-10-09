@@ -2,7 +2,7 @@
 	feature = "!f() { git checkout -b feature/$1; }; f" 									# Create branch with prefix feature
 	bugfix  = "!f() { git checkout -b bugfix/$1; }; f" 										# Create branch with prefix feature
 	amend   = !git add -A && git commit --amend --no-edit 									# Amend previous commit without editing message
-	ls      = log --oneline
+	ls      = "log --pretty=format:\"%C(auto)%ad %h%d %s %C(cyan)[%an]%C(reset)\" --graph --date=short"
 	ac			= "!f() { git add -A && git commit -m \"$1\"; }; f" 							# Add all changes and commit with message
 	sync    = !git fetch --all && git rebase origin/master
 	up      = !git pull --rebase --prune $@ && git submodule update --init --recursive		# Pull changes from the remote. Rebase any local commits to come after the commits I pulled down. Remove remote-tracking branches that no longer exist on the remote.

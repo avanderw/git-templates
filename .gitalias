@@ -1,19 +1,9 @@
-[alias]
-	feature = "!f() { git checkout -b feature/$1; }; f" 									# Create branch with prefix feature
-	bugfix  = "!f() { git checkout -b bugfix/$1; }; f" 										# Create branch with prefix feature
+[alias]									# Create branch with prefix feature
 	amend   = !git add -A && git commit --amend --no-edit 									# Amend previous commit without editing message
 	ls      = "log --pretty=format:\"%C(auto)%ad %h%d %s %C(cyan)[%an]%C(reset)\" --graph --date=short"
-	ac			= "!f() { git add -A && git commit -m \"$1\"; }; f" 							# Add all changes and commit with message
-	sync    = !git fetch --all && git rebase origin/master
+	sync = !git fetch --all && git rebase $(git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@')
 	up      = !git pull --rebase --prune $@ && git submodule update --init --recursive		# Pull changes from the remote. Rebase any local commits to come after the commits I pulled down. Remove remote-tracking branches that no longer exist on the remote.
-	save    = !git add -A && git commit -m 'SAVEPOINT'										# Add all changes including untracked files and create a commit
 	undo    = reset HEAD~1 --mixed 															# Reset the previous commit, but keep all the changes from that commit in the working directory
-	wipe    = !git add -A && git commit -qm 'WIPE SAVEPOINT' && git reset HEAD~1 --hard		# Commit everything working directory and then hard reset to remove that commit
-	bclean  = "!f() { git checkout ${1-master} && git branch --merged ${1-master} | grep -v " ${1-master}$" | xargs git branch -d; }; f" # Run from default branch and does the cleanup of merged branches.
-	bdone   = "!f() { git checkout ${1-master} && git up && git bclean ${1-master}; }; f"	# Switch to master, update and clean merged branches
 	alias   = "!git config --get-regexp ^alias\\. | sed -e s/^alias\\.// -e s/\\ /\\ =\\ /" # List aliases
 	authors = "!git shortlog -esn --no-merges"
 	stats   = "!f() { git log --author=\"$1\" --shortstat --no-merges | grep -E 'fil(e|es) changed' | awk '{files+=$1; inserted+=$4; deleted+=$6; delta+=$4-$6} END {printf \"Commit stats:\\n- Files changed (total)..  %s\\n- Lines added (total)....  %s\\n- Lines deleted (total)..  %s\\n- Total lines (delta)....  %s\\n- Add./Del. ratio (1:n)..  1 : %s\\n\", files, inserted, deleted, delta, deleted / inserted }'; }; f"
-	commits = "!f() { git rev-list --no-merges --count HEAD --author=\"$1\"; }; f"
-	noproxy = config --global --remove-section https
-    proxy   = config --global https.proxy http://your.proxy:3128

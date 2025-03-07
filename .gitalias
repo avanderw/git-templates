@@ -103,3 +103,34 @@
     filetypes = "!git ls-files | sed 's/.*\\.//' | sort | uniq -c | sort -rn | \
                 awk '{printf \"%s%4d%s files with extension %s.%s%s\\n\", \
                 \"\\033[33m\",$1,\"\\033[0m\",\"\\033[36m\",$2,\"\\033[0m\"}'"
+                
+    # Change author information for all commits made by a specific email address
+    # Usage: git reauthor "old@email.com"
+    reauthor = "!f() { \
+        if [ -z \"$1\" ]; then \
+            echo -e \"\\033[31mError: Email address required\\033[0m\"; \
+            echo -e \"Usage: git reauthor \\\"old@email.com\\\"\"; \
+            return 1; \
+        fi; \
+        echo -e \"\\033[33mWarning: This will rewrite history!\\033[0m\"; \
+        echo -e \"All commits from \\033[36m$1\\033[0m will be attributed to:\"; \
+        echo -e \"Name:  \\033[32m$(git config user.name)\\033[0m\"; \
+        echo -e \"Email: \\033[32m$(git config user.email)\\033[0m\"; \
+        read -p \"Continue? (y/n): \" confirm; \
+        if [[ $confirm != [yY] && $confirm != [yY][eE][sS] ]]; then \
+            echo -e \"\\033[33mOperation cancelled\\033[0m\"; \
+            return 0; \
+        fi; \
+        git filter-branch --env-filter ' \
+            if [ \"$GIT_COMMITTER_EMAIL\" = \"'$1'\" ]; then \
+                export GIT_COMMITTER_NAME=\"$(git config user.name)\"; \
+                export GIT_COMMITTER_EMAIL=\"$(git config user.email)\"; \
+            fi; \
+            if [ \"$GIT_AUTHOR_EMAIL\" = \"'$1'\" ]; then \
+                export GIT_AUTHOR_NAME=\"$(git config user.name)\"; \
+                export GIT_AUTHOR_EMAIL=\"$(git config user.email)\"; \
+            fi; \
+        ' --tag-name-filter cat -- --branches --tags; \
+        echo -e \"\\n\\033[32mDone!\\033[0m Author information updated for email: \\033[36m$1\\033[0m\"; \
+        echo -e \"\\033[33mNote:\\033[0m If you've already pushed these commits, you will need to force push.\"; \
+    }; f"

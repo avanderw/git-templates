@@ -1,2 +1,0 @@
-2019-07-09 Add contributing file https://github.com/spring-projects/spring-framework/blob/30bce7/CONTRIBUTING.md
-2019-08-28 Document .gitalias in README.md

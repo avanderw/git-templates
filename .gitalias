@@ -71,20 +71,24 @@
            awk '{printf \"%s%s%s %s%s%s %s\\n\", \
            \"\\033[33m\", $1, \"\\033[0m\", \"\\033[36m\", $2, \"\\033[0m\", $3}'; }; f"
 
-    # Show weekly commit stats
-    # Usage: git weekly
-    weekly = "!git log --author=\"$(git config user.name)\" --format='%ai' | \
+    # Show commit stats by day
+    # Usage: git bytime-day
+    bytime-day = "!git log --author=\"$(git config user.name)\" --format='%ai' | \
              awk '{print substr($1,1,10)}' | sort -k1 | \
              uniq -c | awk '{printf \"%s%3d%s commits on %s%s%s\\n\", \
              \"\\033[32m\",$1,\"\\033[0m\",\"\\033[36m\",$2,\"\\033[0m\"}'"
 
-    # Show commit activity by hour
-    # Usage: git activity
-    activity = "!f() { git log --format='%ai' | \
+    # Show commit stats by hour
+    # Usage: git bytime-hour
+    bytime-hour = "!f() { git log --format='%ai' | \
                awk '{print substr($2,1,2)}' | sort -n | uniq -c | \
                awk '{printf \"%s%02d:00%s %s%s%s %s\\n\", \
                \"\\033[36m\",$2,\"\\033[0m\",\"\\033[33m\",$1,\"\\033[0m\", \
                \"commits\"}'; }; f"
+
+    # Show commit stats by month
+    # Usage: git bytime-month
+    bytime-month = "!git log --format='%ad' --date=format:'%Y-%m' | sort | uniq -c"
 
     # Show repository age and commit count
     # Usage: git age
@@ -103,6 +107,14 @@
     filetypes = "!git ls-files | sed 's/.*\\.//' | sort | uniq -c | sort -rn | \
                 awk '{printf \"%s%4d%s files with extension %s.%s%s\\n\", \
                 \"\\033[33m\",$1,\"\\033[0m\",\"\\033[36m\",$2,\"\\033[0m\"}'"
+
+    # Show top 20 most frequently changed files in the last year
+    # Usage: git hotfiles
+    hotfiles = "!git log --format=format: --name-only --since=\"1 year ago\" | sort | uniq -c | sort -nr | head -20"
+
+    # Show top 20 files mentioned in fix/bug/broken commits
+    # Usage: git bugfiles
+    bugfiles = "!git log -i -E --grep=\"fix|bug|broken\" --name-only --format='' | sort | uniq -c | sort -nr | head -20"
                 
     # Change author information for all commits made by a specific email address
     # Usage: git reauthor "old@email.com"

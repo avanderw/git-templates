@@ -149,3 +149,7 @@
     # Append one or more patterns to the repo's .gitignore (skips duplicates)
     # Usage: git ignore node_modules/ .venv/
     ignore = "!f() { top=$(git rev-parse --show-toplevel) || return 1; for p in \"$@\"; do grep -qxF -- \"$p\" \"$top/.gitignore\" 2>/dev/null || echo \"$p\" >> \"$top/.gitignore\"; done; }; f"
+
+    # Remove the given paths from all history (rewrites history; files stay on disk)
+    # Usage: git purge --path mars-lander/go/main.exe --path-glob "*.exe"
+    purge = "!f() { [ $# -eq 0 ] && { echo 'Usage: git purge --path <path> [--path-glob <glob>]'; return 1; }; git filter-repo --force --invert-paths \"$@\"; }; f"

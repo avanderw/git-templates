@@ -124,6 +124,10 @@
             echo -e \"Usage: git reauthor \\\"old@email.com\\\"\"; \
             return 1; \
         fi; \
+        if ! command -v git-filter-repo >/dev/null 2>&1; then \
+            echo -e \"\\033[31mError: git-filter-repo is not on PATH\\033[0m\"; \
+            return 1; \
+        fi; \
         echo -e \"\\033[33mWarning: This will rewrite history!\\033[0m\"; \
         echo -e \"All commits from \\033[36m$1\\033[0m will be attributed to:\"; \
         echo -e \"Name:  \\033[32m$(git config user.name)\\033[0m\"; \
@@ -133,18 +137,13 @@
             echo -e \"\\033[33mOperation cancelled\\033[0m\"; \
             return 0; \
         fi; \
-        git filter-branch --env-filter ' \
-            if [ \"$GIT_COMMITTER_EMAIL\" = \"'$1'\" ]; then \
-                export GIT_COMMITTER_NAME=\"$(git config user.name)\"; \
-                export GIT_COMMITTER_EMAIL=\"$(git config user.email)\"; \
-            fi; \
-            if [ \"$GIT_AUTHOR_EMAIL\" = \"'$1'\" ]; then \
-                export GIT_AUTHOR_NAME=\"$(git config user.name)\"; \
-                export GIT_AUTHOR_EMAIL=\"$(git config user.email)\"; \
-            fi; \
-        ' --tag-name-filter cat -- --branches --tags; \
+        mailmap=$(mktemp); \
+        printf '%s <%s> <%s>\\n' \"$(git config user.name)\" \"$(git config user.email)\" \"$1\" > \"$mailmap\"; \
+        git filter-repo --force --mailmap \"$mailmap\"; \
+        status=$?; rm -f \"$mailmap\"; \
+        [ $status -eq 0 ] || return $status; \
         echo -e \"\\n\\033[32mDone!\\033[0m Author information updated for email: \\033[36m$1\\033[0m\"; \
-        echo -e \"\\033[33mNote:\\033[0m If you've already pushed these commits, you will need to force push.\"; \
+        echo -e \"\\033[33mNote:\\033[0m git-filter-repo removed the origin remote. Re-add it, then force push.\"; \
     }; f"
 
     # Append one or more patterns to the repo's .gitignore (skips duplicates)

@@ -146,3 +146,7 @@
         echo -e \"\\n\\033[32mDone!\\033[0m Author information updated for email: \\033[36m$1\\033[0m\"; \
         echo -e \"\\033[33mNote:\\033[0m If you've already pushed these commits, you will need to force push.\"; \
     }; f"
+
+    # Append one or more patterns to the repo's .gitignore (skips duplicates)
+    # Usage: git ignore node_modules/ .venv/
+    ignore = "!f() { top=$(git rev-parse --show-toplevel) || return 1; for p in \"$@\"; do grep -qxF -- \"$p\" \"$top/.gitignore\" 2>/dev/null || echo \"$p\" >> \"$top/.gitignore\"; done; }; f"
